@@ -1,6 +1,6 @@
 {
   "name": "homebridge-orbit-bhyve",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Orbit B-Hyve Water Timer plugin for HomeBridge using the Wi-Fi Gateway to expose the Valve service to Apple HomeKit",
   "main": "index.js",
   "scripts": {
