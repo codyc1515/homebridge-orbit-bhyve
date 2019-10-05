@@ -136,27 +136,30 @@ BHyveValve.prototype = {
 									this.value.InUse = 0;
 								}
 								else {
-									this.value.SetDuration = result['status']['watering_status']['stations'][0]['run_time'] * 60;
+									try {
+										this.value.SetDuration = result['status']['watering_status']['stations'][0]['run_time'] * 60;
 
-									var time_current = new Date();
-									var time_remaining = new Date(result['status']['watering_status']['started_watering_station_at']);
-									time_remaining.setSeconds(time_remaining.getSeconds() + (result['status']['watering_status']['stations'][0]['run_time'] * 60));
-									this.value.RemainingDuration = Math.round((time_remaining.getTime() - time_current.getTime()) / 1000);
+										var time_current = new Date();
+										var time_remaining = new Date(result['status']['watering_status']['started_watering_station_at']);
+										time_remaining.setSeconds(time_remaining.getSeconds() + (result['status']['watering_status']['stations'][0]['run_time'] * 60));
+										this.value.RemainingDuration = Math.round((time_remaining.getTime() - time_current.getTime()) / 1000);
 
-									switch (result['status']['run_mode']) {
-										case "manual":
-											if(this.debug) {this.log("Water is running MANUAL for another " + this.value.RemainingDuration + " secs (of " + this.value.SetDuration + ")");}
+										switch (result['status']['run_mode']) {
+											case "manual":
+												if(this.debug) {this.log("Water is running MANUAL for another " + this.value.RemainingDuration + " secs (of " + this.value.SetDuration + ")");}
 
-											this.value.Active = 1;
-											this.value.InUse = 1;
-										break;
+												this.value.Active = 1;
+												this.value.InUse = 1;
+											break;
 
-										default:
-											if(this.debug) {this.log("Water state is UNKNOWN");}
+											default:
+												if(this.debug) {this.log("Water state is UNKNOWN");}
 
-											this.value.Active = 0;
-											this.value.InUse = 0;
-										break;
+												this.value.Active = 0;
+												this.value.InUse = 0;
+											break;
+										}
+										catch {this.log("Could not find any active 'sprinkler_timer' devices ");}
 									}
 								}
 							}
