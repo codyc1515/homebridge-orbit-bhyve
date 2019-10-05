@@ -24,6 +24,7 @@ function BHyveValve(log, config) {
 	this.value.InUse = Characteristic.InUse.NOT_IN_USE;
 	this.value.SetDuration = 300;
 	this.value.RemainingDuration = 0;
+	this.value.BatteryLevel = 100;
 
 	// log us in
 	request.post({
@@ -116,6 +117,19 @@ BHyveValve.prototype = {
 
 		this.IrrigationSystem.addLinkedService(this.Valve);
 
+		this.Battery = new Service.BatteryService(this.name);
+		this.Battery
+			.setCharacteristic(Characteristic.BatteryLevel, 100)
+			.setCharacteristic(Characteristic.ChargingState, Characteristic.ChargingState.NOT_CHARGEABLE)
+			.setCharacteristic(Characteristic.StatusLowBattery, Characteristic.StatusLowBattery.BATTERY_LEVEL_NORMAL);
+
+		this.Battery
+			.getCharacteristic(Characteristic.BatteryLevel)
+			.on('get', this._getValue.bind(this, "BatteryLevel"))
+			.on('set', this._setValue.bind(this, "BatteryLevel"));
+
+		this.Valve.addLinkedService(this.Battery);
+
 		this.informationService = new Service.AccessoryInformation();
 		this.informationService
 			.setCharacteristic(Characteristic.Name, this.name)
@@ -124,7 +138,7 @@ BHyveValve.prototype = {
 			.setCharacteristic(Characteristic.FirmwareRevision, "1.1.0");
 			//.setCharacteristic(Characteristic.SerialNumber, this.name);
 
-		return [this.IrrigationSystem, this.Valve, this.informationService];
+		return [this.IrrigationSystem, this.Valve, this.Battery, this.informationService];
 	},
 
 	_getValue: function(CharacteristicName, callback) {
@@ -149,6 +163,13 @@ BHyveValve.prototype = {
 								this.device = result['id'];
 
 								if(this.debug) {this.log("Found sprinkler '" + this.name + "' with id " + result['id'] + " and state " + result['status']['watering_status']);}
+
+								// Set the Battery Level
+								this.value.BatteryLevel = result['battery']['percent'];
+								this.Battery.getCharacteristic(Characteristic.BatteryLevel).updateValue(result['battery']['percent']);
+
+								if(result['battery']['percent'] <= 10) {this.Battery.getCharacteristic(Characteristic.StatusLowBattery).updateValue(Characteristic.StatusLowBattery.BATTERY_LEVEL_LOW);}
+								else {this.Battery.getCharacteristic(Characteristic.StatusLowBattery).updateValue(Characteristic.StatusLowBattery.BATTERY_LEVEL_NORMAL);}
 
 								// Set the Program Mode
 								switch (result['status']['run_mode']) {
@@ -200,7 +221,7 @@ BHyveValve.prototype = {
 					}
 					else {this.log("Could not get Orbit B-Hyve device details");}
 				}.bind(this));
-				
+
 				if(this.value.InUse == Characteristic.InUse.IN_USE) {callback(null, Characteristic.Active.ACTIVE);}
 				else {callback(null, Characteristic.Active.INACTIVE);}
 			break;
@@ -223,6 +244,15 @@ BHyveValve.prototype = {
 
 			case "ProgramMode":
 				callback(null, this.value.ProgramMode);
+			break;
+
+			case "BatteryLevel":
+				callback(null, this.value.BatteryLevel);
+			break;
+
+			default:
+				if(this.debug) {this.log("unknown GET operation called");}
+				callback();
 			break;
 		}
 	},
