@@ -334,14 +334,16 @@ BHyveValve.prototype = {
                             else {this.IrrigationSystem.getCharacteristic(Characteristic.StatusFault).updateValue(Characteristic.StatusFault.GENERAL_FAULT);}
 
                             // Set the Battery Level
-                            try {
+                            if(result['battery']) {
                                 this.Battery.getCharacteristic(Characteristic.BatteryLevel).updateValue(result['battery']['percent']);
 
                                 if(result['battery']['percent'] <= 10) {this.Battery.getCharacteristic(Characteristic.StatusLowBattery).updateValue(Characteristic.StatusLowBattery.BATTERY_LEVEL_LOW);}
                                 else {this.Battery.getCharacteristic(Characteristic.StatusLowBattery).updateValue(Characteristic.StatusLowBattery.BATTERY_LEVEL_NORMAL);}
                             }
-                            catch(err) {
+                            else {
                                 if(this.debug) {this.log("No battery service available");}
+
+                                this.Battery.setHiddenService(true);
                             }
 
                             // Set the Program Mode
