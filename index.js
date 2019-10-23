@@ -19,6 +19,7 @@ function BHyveValve(log, config) {
     this.email = config["email"];
     this.password = config["password"];
     this.zones = config["zones"] || 1;
+    this.debug = config["debug"] || false;
     this.token, this.user, this.device = null;
 
     this.Valves = [];
