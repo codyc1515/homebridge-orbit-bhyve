@@ -68,7 +68,6 @@ function BHyveValve(log, config) {
                 "password": this.password
             }
         },
-        rejectUnauthorized: false
     }, function(err, response, body) {
         if (!err && response.statusCode == 200) {
             this.token = body['orbit_api_key'];
@@ -320,8 +319,7 @@ BHyveValve.prototype = {
                         "Accept": "application/json",
                         "orbit-api-key": this.token,
                         "orbit-app-id": "Orbit Support Dashboard"
-                    },
-                    rejectUnauthorized: false
+                    }
                 }, function(err, response, body) {
                 if (!err && response.statusCode == 200) {
                     body = JSON.parse(body);
