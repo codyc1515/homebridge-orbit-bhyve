@@ -1,0 +1,67 @@
+{
+   "pluginAlias":"OrbitBHyve",
+   "pluginType":"accessory",
+   "singular":true,
+   "headerDisplay":null,
+   "schema":{
+      "type":"object",
+      "properties":{
+         "email":{
+            "title":"Email",
+            "type":"string",
+            "format":"email",
+            "placeholder":"Email"
+         },
+         "password":{
+            "title":"Password",
+            "type":"string",
+            "format":"password",
+            "placeholder":"Password"
+         },
+         "zones":{
+            "title":"Zones",
+            "type":"integer",
+            "default":1,
+            "minimum":1,
+            "maximum":8,
+            "description":"How many zones is your device able to control?"
+         },
+         "debug":{
+            "title":"Debug logging",
+            "type":"boolean",
+            "description":"Turns on additional logging (can be helpful for diagnosing issues)"
+         }
+      }
+   },
+   "layout":[
+      {
+         "type":"flex",
+         "flex-flow":"row wrap",
+         "items":[
+            {
+               "key":"email",
+               "type":"email"
+            },
+            {
+               "key":"password",
+               "type":"password"
+            }
+         ]
+      },
+      {
+         "type":"flex",
+         "flex-flow":"row wrap",
+         "items":[
+            "zones"
+         ]
+      },
+      {
+         "type":"fieldset",
+         "title":"Advanced configuration",
+         "expandable":true,
+         "items":[
+            "debug"
+         ]
+      }
+   ]
+}
