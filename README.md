@@ -16,7 +16,7 @@ Orbit B-Hyve Water Timer that is connected to a Wi-Fi gateway
 2. Create a login & add your Orbit B-Hyve Water Timer and Wi-Fi Gateway to the app
 
 ### Change your HomeBridge config file
-Add the below to the ```accesories``` section of your HomeBridge ```config.json``` file and input your *Orbit B-Hyve* login details in the email & password fields:
+Add the below to the ```accessories``` section of your HomeBridge ```config.json``` file and input your *Orbit B-Hyve* login details in the email & password fields:
 
 ```
 {
