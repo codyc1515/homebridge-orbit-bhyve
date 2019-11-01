@@ -10,13 +10,17 @@
             "title":"Email",
             "type":"string",
             "format":"email",
-            "placeholder":"Email"
+            "placeholder":"Email",
+            "minLength": 1,
+            "required": true
          },
          "password":{
             "title":"Password",
             "type":"string",
             "format":"password",
-            "placeholder":"Password"
+            "placeholder":"Password",
+            "minLength": 1,
+            "required": true
          },
          "zones":{
             "title":"Zones",
@@ -24,7 +28,9 @@
             "default":1,
             "minimum":1,
             "maximum":8,
-            "description":"How many zones is your device able to control?"
+            "description":"How many zones is your device able to control?",
+            "minLength": 1,
+            "required": true
          },
          "debug":{
             "title":"Debug logging",

@@ -1,8 +1,8 @@
 {
   "_from": "homebridge-orbit-bhyve@latest",
-  "_id": "homebridge-orbit-bhyve@2.0.0",
+  "_id": "homebridge-orbit-bhyve@3.1.0",
   "_inBundle": false,
-  "_integrity": "sha512-hfiF6N6OF7+kmOCxn8xXxMAaJaFjCdoJYCyXUCXrlbacD/1GHTqLX+o+SQdq/VF2CAfvdCfLCJ/AgL/fyF0pHw==",
+  "_integrity": "sha512-eSJmBGmnGqftRRJCRor0UXbUuHFj7j432a6c3qx8Qqq5yG90QH8wITIEvmNvMQk/qxujl+XpWVSAsZbr1Bv5JQ==",
   "_location": "/homebridge-orbit-bhyve",
   "_phantomChildren": {},
   "_requested": {
@@ -18,10 +18,10 @@
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "https://registry.npmjs.org/homebridge-orbit-bhyve/-/homebridge-orbit-bhyve-2.0.0.tgz",
-  "_shasum": "2c2a893dbe4ed8d717092ee6021575aa7ed14a5b",
+  "_resolved": "https://registry.npmjs.org/homebridge-orbit-bhyve/-/homebridge-orbit-bhyve-3.1.0.tgz",
+  "_shasum": "df05795c11d7a7146e35e193af86503e741e1416",
   "_spec": "homebridge-orbit-bhyve@latest",
-  "_where": "/usr/local/lib",
+  "_where": "/usr/lib",
   "author": {
     "name": "codyc1515"
   },
@@ -59,5 +59,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "3.1.0"
+  "version": "3.1.1"
 }
