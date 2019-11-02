@@ -22,6 +22,8 @@ function BHyveValve(log, config) {
     this.debug = config["debug"] || false;
     this.token, this.user, this.device = null;
 
+    this.BatteryLevel = 100;
+
     this.Valves = [];
 
     this.Valves[0] = [];
@@ -336,6 +338,7 @@ BHyveValve.prototype = {
 
                             // Set the Battery Level
                             if(result['battery']) {
+                                this.BatteryLevel = result['battery']['percent'];
                                 this.Battery.getCharacteristic(Characteristic.BatteryLevel).updateValue(result['battery']['percent']);
 
                                 if(result['battery']['percent'] <= 10) {this.Battery.getCharacteristic(Characteristic.StatusLowBattery).updateValue(Characteristic.StatusLowBattery.BATTERY_LEVEL_LOW);}
@@ -466,7 +469,7 @@ BHyveValve.prototype = {
             case "SetDuration":         callback(null, this.Valves[stationId]['SetDuration']);          break;
             case "RemainingDuration":   callback(null, this.Valves[stationId]['RemainingDuration']);    break;
             case "ProgramMode":         callback(null, this.Valves[0]['ProgramMode']);                  break;
-            case "BatteryLevel":        callback(null, 100);                                            break;
+            case "BatteryLevel":        callback(null, this.BatteryLevel);                              break;
 
             default:
                 this.log("Unknown CharacteristicName called", CharacteristicName);
