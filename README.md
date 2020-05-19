@@ -1,3 +1,6 @@
+# Update
+This plug-in is now archived and it is advised to use the [homebridge-platform-orbit](https://github.com/MortJC/homebridge-platform-orbit) plug-in instead. It is based on this plug-in. As at 2020-05-19, Orbit still haven't got their act together and added native HomeKit support. I suggest you return your device if you still have the opportunity to do so.
+
 # homebridge-orbit-bhyve
 Orbit B-Hyve Water Timer plugin for [HomeBridge](https://github.com/nfarina/homebridge) using the Wi-Fi Gateway to expose the Valve service to Apple HomeKit.
 
